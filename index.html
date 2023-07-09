@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSONを表示する</title>
+</head>
+<body>
+  <div id="jsonContainer"></div>
+
+  <script>
+    // JSONデータを取得する関数
+    function fetchJSON(url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var json = JSON.parse(xhr.responseText);
+          callback(json);
+        }
+      };
+      xhr.open("GET", url, true);
+      xhr.send();
+    }
+
+    // JSONデータを表示する関数
+    function displayJSON(data) {
+      var jsonContainer = document.getElementById("jsonContainer");
+      jsonContainer.textContent = JSON.stringify(data, null, 2);
+    }
+
+    // JSONデータを取得して表示する
+    fetchJSON("https://raw.githubusercontent.com/marriageforalljapan/letters-to-giin/main/giin.json", displayJSON);
+  </script>
+</body>
+</html>
